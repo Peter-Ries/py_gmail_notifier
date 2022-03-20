@@ -15,7 +15,7 @@ config_file = os.path.expanduser(
 
 
 #
-#   ### fetch the gmail atom feed and prepare it as a JSON ###
+#   ### parse the config file for credentials ###
 def read_config(config_file):
 
     try:
