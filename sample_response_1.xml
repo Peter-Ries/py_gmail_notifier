@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed version="0.3" xmlns="http://purl.org/atom/ns#">
+  <title>Gmail - Inbox for xxxxx@gmail.com</title>
+  <tagline>New messages in your Gmail Inbox</tagline>
+  <fullcount>1</fullcount>
+  <link rel="alternate" href="https://mail.google.com/mail" type="text/html" />
+  <modified>2022-03-19T19:04:28Z</modified>
+  <entry>
+    <title>Testmail</title>
+    <summary>Email Subject</summary>
+    <link rel="alternate" href="https://mail.google.com/mail?account_id=xxxxx@gmail.com&amp;message_id=xxxxxxxx&amp;view=conv&amp;extsrc=atom" type="text/html" />
+    <modified>2022-03-19T18:49:21Z</modified>
+    <issued>2022-03-19T18:49:21Z</issued>
+    <id>tag:gmail.google.com,2004:000000000000000000</id>
+    <author>
+      <name>Sender Name</name>
+      <email>senderemail@domain.com</email>
+    </author>
+  </entry>
+</feed>
