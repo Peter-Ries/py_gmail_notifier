@@ -23,3 +23,24 @@ py_gmail_notifier.py - allowed arguments:
 
 everything else returns list of "(sender) - summary"
 ```
+
+## Installation
+
+Assuming you have a working python3 on your system you additionally might need following modules:
+
+```
+pip install urllib3
+pip install configparser
+pip install xmtodict
+pip install json
+```
+
+### Config file
+
+Save the sample file with your settings to _~/.config/py_gmail_notifier.cfg_
+
+Usually you have your gmail account set up with a 2FA. So you need to create an application password in your google account security settings.
+
+## Disclaimer
+
+This script is provided without any guarantee to work for you, nor will I give support. I wrote it for my use case and you might copy/share/modify as you like. :)
