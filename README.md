@@ -31,7 +31,7 @@ Assuming you have a working python3 on your system you additionally might need f
 ```
 pip install urllib3
 pip install configparser
-pip install xmtodict
+pip install xmltodict
 pip install json
 ```
 
