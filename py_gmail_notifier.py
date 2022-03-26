@@ -8,21 +8,21 @@ from configparser import ConfigParser
 #
 #   ### global variables ###
 G_URL = "https://mail.google.com/mail/feed/atom"
-script_name = os.path.basename(__file__)
-user_home = os.path.expanduser("~")
-config_file = os.path.expanduser(
-    f"{user_home}/.config/{os.path.splitext(script_name)[0]}.cfg"
+SCRIPT_NAME = os.path.basename(__file__)
+USER_HOME = os.path.expanduser("~")
+CONFIG_FILE = os.path.expanduser(
+    f"{USER_HOME}/.config/{os.path.splitext(SCRIPT_NAME)[0]}.cfg"
 )
 
 
 #
 #   ### parse the config file for credentials ###
-def read_config(config_file):
+def read_config(CONFIG_FILE):
 
     try:
 
         config = ConfigParser()
-        config.read(config_file)
+        config.read(CONFIG_FILE)
         g_user = config["account"]["username"]
         g_password = config["account"]["password"]
 
@@ -31,7 +31,7 @@ def read_config(config_file):
     except Exception as e:
 
         print(f"ERROR - {e}")
-        print(f"\nConfig file needs to be '{config_file}'")
+        print(f"\nConfig file needs to be '{CONFIG_FILE}'")
         print("\nFormat of config file:")
         print("\t[account]")
         print("\tusername = your_login_user")
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     #
     # get google credentials form config
     g_user, g_password = read_config(
-        config_file
+        CONFIG_FILE
     )  # when 2FA provide your application specifc password!
 
     if g_user != "ERROR" and g_password != "ERROR":
@@ -94,7 +94,7 @@ if __name__ == "__main__":
                     # -d - print complete JSON to debug stuff
                     elif str(sys.argv[2]) == "-d":
 
-                        print(f"config filepath:\t{config_file}")
+                        print(f"config filepath:\t{CONFIG_FILE}")
                         print(f"google feed url:\t{G_URL}")
                         print(f"google username:\t{g_user}")
                         print(f"google password:\t{g_password}")
@@ -103,7 +103,7 @@ if __name__ == "__main__":
                     # unknown argument? then print allowed arguments
                     else:
                         print(
-                            f"\n{script_name} - allowed arguments:\n\t-c\tunread email count\n\t-d\tdebug: show JSON output"
+                            f"\n{SCRIPT_NAME} - allowed arguments:\n\t-c\tunread email count\n\t-d\tdebug: show JSON output"
                         )
 
                 # anything else - print email-sender and email-subject of all emails
