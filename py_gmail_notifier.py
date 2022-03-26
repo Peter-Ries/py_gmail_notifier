@@ -7,6 +7,7 @@ from configparser import ConfigParser
 
 #
 #   ### global variables ###
+G_URL = "https://mail.google.com/mail/feed/atom"
 script_name = os.path.basename(__file__)
 user_home = os.path.expanduser("~")
 config_file = os.path.expanduser(
@@ -19,6 +20,7 @@ config_file = os.path.expanduser(
 def read_config(config_file):
 
     try:
+
         config = ConfigParser()
         config.read(config_file)
         g_user = config["account"]["username"]
@@ -27,6 +29,7 @@ def read_config(config_file):
         return g_user, g_password
 
     except Exception as e:
+
         print(f"ERROR - {e}")
         print(f"\nConfig file needs to be '{config_file}'")
         print("\nFormat of config file:")
@@ -39,17 +42,21 @@ def read_config(config_file):
 
 #
 #   ### fetch the gmail atom feed and prepare it as a JSON ###
-def get_feed(g_url, g_user, g_password):
+def get_feed(G_URL, g_user, g_password):
 
     try:
+
         http = urllib3.PoolManager()
         headers = urllib3.make_headers(basic_auth=f"{g_user}:{g_password}")
-        xml = http.request("GET", g_url, headers=headers)
+        xml = http.request("GET", G_URL, headers=headers)
         feed_as_json = json.loads(json.dumps(xmltodict.parse(xml.data)))
+
         return feed_as_json
 
     except Exception as e:
+
         print(f"ERROR - {e}")
+
         return "ERROR"
 
 
@@ -58,26 +65,25 @@ def get_feed(g_url, g_user, g_password):
 if __name__ == "__main__":
 
     #
-    # google stuff
-    g_url = "https://mail.google.com/mail/feed/atom"
+    # get google credentials form config
     g_user, g_password = read_config(
         config_file
-    )  # when 2FA provide your application specifc passwordpassword!
+    )  # when 2FA provide your application specifc password!
 
     if g_user != "ERROR" and g_password != "ERROR":
-        feed = get_feed(g_url, g_user, g_password)
 
         try:
-            if feed != "ERROR":
+            feed = get_feed(G_URL, g_user, g_password)
 
+            if feed != "ERROR":
                 # get unread mail count here as we need it several times
                 unread_mails = int(feed["feed"]["fullcount"])
 
                 # do we have cmd line arguments?
-                if len(sys.argv) > 1:
+                if len(sys.argv) > 2:
 
                     # -c - just print unread emails count
-                    if str(sys.argv[1]) == "-c":
+                    if str(sys.argv[2]) == "-c":
 
                         # better output string ;)
                         if unread_mails == 1:
@@ -86,9 +92,10 @@ if __name__ == "__main__":
                             print(f"{unread_mails} unread emails")
 
                     # -d - print complete JSON to debug stuff
-                    elif str(sys.argv[1]) == "-d":
+                    elif str(sys.argv[2]) == "-d":
+
                         print(f"config filepath:\t{config_file}")
-                        print(f"google feed url:\t{g_url}")
+                        print(f"google feed url:\t{G_URL}")
                         print(f"google username:\t{g_user}")
                         print(f"google password:\t{g_password}")
                         print(f"feed:\n\t{feed}\n\n")
@@ -102,20 +109,26 @@ if __name__ == "__main__":
                 # anything else - print email-sender and email-subject of all emails
                 else:
 
-                    entries = feed["feed"]["entry"]
-
                     # if only one entry we dont have a list, then just print. Otherwise loop...
                     if unread_mails == 0:
                         print("0 unread mails")
-                    if unread_mails == 1:
-                        print(f"({entries['author']['name']}) - {entries['title']}")
+
                     else:
-                        for index in range(0, unread_mails):
-                            print(
-                                f"({entries[index]['author']['name']}) - {entries[index]['title']}"
-                            )
+
+                        entries = feed["feed"]["entry"]
+
+                        if unread_mails == 1:
+                            print(f"({entries['author']['name']}) - {entries['title']}")
+
+                        else:
+                            for index in range(0, unread_mails):
+                                print(
+                                    f"({entries[index]['author']['name']}) - {entries[index]['title']}"
+                                )
 
             else:
+
+                # print the ERROR
                 print(feed)
 
         except Exception as e:
