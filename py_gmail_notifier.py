@@ -80,10 +80,10 @@ if __name__ == "__main__":
                 unread_mails = int(feed["feed"]["fullcount"])
 
                 # do we have cmd line arguments?
-                if len(sys.argv) > 2:
+                if len(sys.argv) > 1:
 
                     # -c - just print unread emails count
-                    if str(sys.argv[2]) == "-c":
+                    if str(sys.argv[1]) == "-c":
 
                         # better output string ;)
                         if unread_mails == 1:
@@ -92,7 +92,7 @@ if __name__ == "__main__":
                             print(f"{unread_mails} unread emails")
 
                     # -d - print complete JSON to debug stuff
-                    elif str(sys.argv[2]) == "-d":
+                    elif str(sys.argv[1]) == "-d":
 
                         print(f"config filepath:\t{CONFIG_FILE}")
                         print(f"google feed url:\t{G_URL}")
