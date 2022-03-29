@@ -129,7 +129,7 @@ if __name__ == "__main__":
             else:
 
                 # print the ERROR
-                print(feed)
+                print(f"ERROR\n\t{feed}")
 
         except Exception as e:
-            print(f"ERROR - {e}")
+            print(f"ERROR\n\t{e}")
