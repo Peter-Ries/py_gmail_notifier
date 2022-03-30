@@ -55,7 +55,7 @@ def get_feed(G_URL, g_user, g_password):
 
     except Exception as e:
 
-        print(f"ERROR - {e}")
+        print(f"ERROR\r\t{e}")
 
         return "ERROR"
 
