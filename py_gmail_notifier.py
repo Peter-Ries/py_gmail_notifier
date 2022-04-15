@@ -82,12 +82,24 @@ if __name__ == "__main__":
                 # do we have cmd line arguments?
                 if len(sys.argv) > 1:
 
-                    # -c - just print unread emails count
+                    # -c - just print unread emails count with text
                     if str(sys.argv[1]) == "-c":
 
                         # better output string ;)
                         if unread_mails == 1:
                             print(f"{unread_mails} unread email")
+                        else:
+                            print(f"{unread_mails} unread emails")
+
+                    # -C - cleaner output - just number of mails and nothing if
+                    # no unread mail
+                    elif str(sys.argv[1]) == "-C":
+
+                        # better output string ;)
+                        if unread_mails == 1:
+                            print(f"{unread_mails} unread email")
+                        elif unread_mails == 0:
+                            print("")
                         else:
                             print(f"{unread_mails} unread emails")
 
@@ -103,7 +115,7 @@ if __name__ == "__main__":
                     # unknown argument? then print allowed arguments
                     else:
                         print(
-                            f"\n{SCRIPT_NAME} - allowed arguments:\n\t-c\tunread email count\n\t-d\tdebug: show JSON output"
+                            f"\n{SCRIPT_NAME} - allowed arguments:\n\t-c\tunread email count\n\t-C\tcompact unread email count (just number)\n\t-d\tdebug: show JSON output"
                         )
 
                 # anything else - print email-sender and email-subject of all emails
