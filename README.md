@@ -41,6 +41,23 @@ Save the sample file with your settings to _~/.config/py_gmail_notifier.cfg_
 
 Usually you have your gmail account set up with a 2FA. So you need to create an application password in your google account security settings.
 
+## Example to create a "taskbar plasmoid"
+
+- configure py_gmail_notifier.cfg
+- place python script in your bin directory
+- test output and connection first by calling _python yourpathhere/py_gmail_notifier.py -C_ - you should get a number of unread mails
+- take sample script _mailplasmoid.sh_
+- install MesloLGS NF font
+- install plasmoid _commandoutput_ (https://store.kde.org/p/1166510/)
+- use plasmoid and configure it to call mailplasmoid.sh 
+  - use interval e. g. 60000 ms (with wait for completion)
+  - use MesloLGS NF font with 22px
+  - optionally adjust color if using a light taskbar. breeze dark should use #fcfcfc and outline #232629
+  - fixed width 26px works great
+  - run command (if you configured mailbox in chrome): _google-chrome-stable https://mail.google.com/mail/u/0/#inbox_
+  
+That's it. You should now have a mailenvleope icon in your taskbar that changes whenever there's new mail. When you clock on that icon chrome will open your inbox
+
 ## Disclaimer
 
 This script is provided without any guarantee to work for you, nor will I give support. I wrote it for my use case and you might copy/share/modify as you like. :)
